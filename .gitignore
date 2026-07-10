@@ -12,6 +12,8 @@ env/
 *.db
 *.sqlite
 *.sqlite3
+data/*
+!data/.gitkeep
 
 # ── Python: caché y compilados ───────────────────────────────────────────────
 __pycache__/

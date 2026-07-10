@@ -3,12 +3,14 @@ Gestión de la base de datos SQLite.
 Proporciona get_db() para obtener una conexión e init_db() para crear las tablas.
 """
 
+import os
 import sqlite3
 from config import DB_PATH
 
 
 def get_db() -> sqlite3.Connection:
     """Abre y retorna una conexión a la base de datos."""
+    os.makedirs(os.path.dirname(DB_PATH) or ".", exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row  # Permite acceder a columnas por nombre
     return conn

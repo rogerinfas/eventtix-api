@@ -9,5 +9,5 @@ from dotenv import load_dotenv
 load_dotenv()  # Carga las variables de .env al entorno
 
 SECRET_KEY = os.getenv("SECRET_KEY", "clave_por_defecto_insegura")
-DB_PATH    = os.getenv("DB_PATH", "eventtix.db")
+DB_PATH    = os.getenv("DB_PATH", "data/eventtix.db")
 PORT       = int(os.getenv("PORT", 9988))

@@ -1,0 +1,11 @@
+services:
+  eventtix-api:
+    build: .
+    container_name: eventtix-api
+    restart: always                   # se levanta solo si el VPS reinicia
+    ports:
+      - "9988:9988"
+    volumes:
+      - ./data:/app/data              # la BD persiste fuera del contenedor
+    env_file:
+      - .env
