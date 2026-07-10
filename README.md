@@ -142,23 +142,14 @@ docker compose logs --tail=50
 
 ---
 
-## Usuario de prueba (seed)
+## Usuarios de prueba (seed)
 
-Al arrancar por primera vez se crea automáticamente un usuario con billetera precargada:
+Al arrancar por primera vez se crean automáticamente dos usuarios con billetera precargada:
 
-| Campo | Valor |
-|---|---|
-| **Email** | `admin@eventtix.com` |
-| **Password** | `admin123` |
-| **Nombre** | Roger Infa Sanchez |
-
-**Billetera inicial:**
-
-| Evento | Asiento | Estado |
-|---|---|---|
-| Noche de Rock Clásico | Fila A - 12 | activo |
-| Obra: Hamlet | VIP 5 | activo |
-| Exposición Arte Moderno | General | usado |
+| Nombre | Email | Password | Billetera |
+|---|---|---|---|
+| Roger Infa Sanchez | `admin@eventtix.com` | `admin123` | Rock Clásico (Fila A-12) · Hamlet (VIP 5) · Arte Moderno (usado) |
+| Usuario Prueba | `user@eventtix.com` | `user123` | Festival de Jazz (Platea B-7) · Concierto de Cumbia (cancelado) |
 
 ---
 
@@ -177,8 +168,10 @@ Al arrancar por primera vez se crea automáticamente un usuario con billetera pr
 | Método | Ruta | Descripción |
 |---|---|---|
 | `GET` | `/api/perfil` | Datos del usuario autenticado |
-| `GET` | `/api/billetera` | Boletos comprados por el usuario |
+| `GET` | `/api/billetera` | Boletos del usuario autenticado |
 | `POST` | `/api/billetera/comprar` | Compra un boleto para un evento |
+| `PATCH` | `/api/billetera/<id>/cancelar` | Cancela un boleto activo |
+| `POST` | `/api/billetera/transferir` | Transfiere un boleto a otro usuario por email |
 
 ---
 

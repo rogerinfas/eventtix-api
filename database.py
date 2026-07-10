@@ -78,7 +78,7 @@ def init_db() -> None:
         )
         usuario_id = cur.lastrowid
 
-        # 3 boletos en la billetera del usuario seed
+        # 3 boletos en la billetera del usuario admin seed
         boletos_seed = [
             (usuario_id, 1, "Fila A - 12", "activo", f"EVENTTIX-U{usuario_id}-E1-FilaA12"),
             (usuario_id, 3, "VIP 5",        "activo", f"EVENTTIX-U{usuario_id}-E3-VIP5"),
@@ -87,6 +87,23 @@ def init_db() -> None:
         cur.executemany(
             "INSERT INTO boleto (usuario_id, evento_id, asiento, estado, qr_data) VALUES (?,?,?,?,?)",
             boletos_seed,
+        )
+
+        # ── Segundo usuario de prueba ─────────────────────────────────────────
+        hash_pw2 = bcrypt.hashpw(b"user123", bcrypt.gensalt()).decode()
+        cur.execute(
+            "INSERT INTO usuario (nombre, email, contrasena_hash) VALUES (?, ?, ?)",
+            ("Usuario Prueba", "user@eventtix.com", hash_pw2),
+        )
+        usuario2_id = cur.lastrowid
+
+        boletos_seed2 = [
+            (usuario2_id, 2, "Platea B - 7", "activo",    f"EVENTTIX-U{usuario2_id}-E2-PlateaB7"),
+            (usuario2_id, 5, "General",       "cancelado", f"EVENTTIX-U{usuario2_id}-E5-General"),
+        ]
+        cur.executemany(
+            "INSERT INTO boleto (usuario_id, evento_id, asiento, estado, qr_data) VALUES (?,?,?,?,?)",
+            boletos_seed2,
         )
 
     conn.commit()
