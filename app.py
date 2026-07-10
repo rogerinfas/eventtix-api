@@ -30,5 +30,5 @@ def create_app() -> Flask:
 if __name__ == "__main__":
     init_db()
     app = create_app()
-    print("✅  EventTix API corriendo en http://localhost:5000")
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    print("✅  EventTix API corriendo en http://localhost:9988")
+    app.run(debug=True, host="0.0.0.0", port=9988)
