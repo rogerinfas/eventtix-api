@@ -1,7 +1,13 @@
 """
 Configuración global de la aplicación.
-Cambia SECRET_KEY por una cadena segura en producción.
+Los valores se leen desde el archivo .env (copia .env.example → .env para empezar).
 """
 
-SECRET_KEY = "eventtix_secret_super_seguro_2024"
-DB_PATH    = "eventtix.db"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Carga las variables de .env al entorno
+
+SECRET_KEY = os.getenv("SECRET_KEY", "clave_por_defecto_insegura")
+DB_PATH    = os.getenv("DB_PATH", "eventtix.db")
+PORT       = int(os.getenv("PORT", 9988))

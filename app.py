@@ -6,7 +6,7 @@ Registra los blueprints y arranca el servidor.
 from flask import Flask
 from flask_cors import CORS
 
-from config import SECRET_KEY         # noqa: F401 — importado para que esté en scope
+from config import SECRET_KEY, PORT     # noqa: F401
 from database import init_db
 from routes.auth import auth_bp
 from routes.eventos import eventos_bp
@@ -30,5 +30,5 @@ def create_app() -> Flask:
 if __name__ == "__main__":
     init_db()
     app = create_app()
-    print("✅  EventTix API corriendo en http://localhost:9988")
-    app.run(debug=True, host="0.0.0.0", port=9988)
+    print(f"✅  EventTix API corriendo en http://localhost:{PORT}")
+    app.run(debug=True, host="0.0.0.0", port=PORT)
