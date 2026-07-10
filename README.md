@@ -142,6 +142,26 @@ docker compose logs --tail=50
 
 ---
 
+## Usuario de prueba (seed)
+
+Al arrancar por primera vez se crea automáticamente un usuario con billetera precargada:
+
+| Campo | Valor |
+|---|---|
+| **Email** | `admin@eventtix.com` |
+| **Password** | `admin123` |
+| **Nombre** | Roger Infa Sanchez |
+
+**Billetera inicial:**
+
+| Evento | Asiento | Estado |
+|---|---|---|
+| Noche de Rock Clásico | Fila A - 12 | activo |
+| Obra: Hamlet | VIP 5 | activo |
+| Exposición Arte Moderno | General | usado |
+
+---
+
 ## Endpoints
 
 ### Públicos

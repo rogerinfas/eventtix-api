@@ -49,7 +49,7 @@ def init_db() -> None:
         );
     """)
 
-    # Siembra eventos solo si la tabla está vacía
+    # ── Seed: eventos ────────────────────────────────────────────────────────
     cur.execute("SELECT COUNT(*) FROM evento")
     if cur.fetchone()[0] == 0:
         eventos_seed = [
@@ -65,6 +65,28 @@ def init_db() -> None:
         cur.executemany(
             "INSERT INTO evento (nombre, categoria, fecha, lugar, precio, color_hex) VALUES (?,?,?,?,?,?)",
             eventos_seed,
+        )
+
+    # ── Seed: usuario de prueba ───────────────────────────────────────────────
+    cur.execute("SELECT COUNT(*) FROM usuario")
+    if cur.fetchone()[0] == 0:
+        import bcrypt
+        hash_pw = bcrypt.hashpw(b"admin123", bcrypt.gensalt()).decode()
+        cur.execute(
+            "INSERT INTO usuario (nombre, email, contrasena_hash) VALUES (?, ?, ?)",
+            ("Roger Infa Sanchez", "admin@eventtix.com", hash_pw),
+        )
+        usuario_id = cur.lastrowid
+
+        # 3 boletos en la billetera del usuario seed
+        boletos_seed = [
+            (usuario_id, 1, "Fila A - 12", "activo", f"EVENTTIX-U{usuario_id}-E1-FilaA12"),
+            (usuario_id, 3, "VIP 5",        "activo", f"EVENTTIX-U{usuario_id}-E3-VIP5"),
+            (usuario_id, 6, "General",      "usado",  f"EVENTTIX-U{usuario_id}-E6-General"),
+        ]
+        cur.executemany(
+            "INSERT INTO boleto (usuario_id, evento_id, asiento, estado, qr_data) VALUES (?,?,?,?,?)",
+            boletos_seed,
         )
 
     conn.commit()
